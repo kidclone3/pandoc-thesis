@@ -6,7 +6,8 @@ faculty: Khoa Toán - Cơ - Tin học # Tên khoa
 subject: Khóa luận tốt nghiệp # Tên môn học
 major: Khoa học máy tính và thông tin # Ngành học
 title: Phương pháp rời rạc động giải các bài toán tìm đường đi có yếu tố thời gian # Tên đề tài
-instructor: Vũ Đức Minh # Tên giáo viên hướng dẫn
+subtitle: Khóa luận tốt nghiệp # Tên phụ
+instructors: 
 author:
   - name: Bùi Khánh Duy # Tên tác giả
     id: 20001898 # Mã số sinh viên
