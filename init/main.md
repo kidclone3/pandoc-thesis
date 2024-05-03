@@ -3,21 +3,19 @@
 university: Đại học Quốc gia Hà Nội # Tên đại học
 collage: Trường Đại học Khoa học Tự nhiên # Tên trường
 faculty: Khoa Toán - Cơ - Tin học # Tên khoa
-subject: Thực tập thực tế phát triển phần mềm # Tên môn học
-major: Toán tin # Ngành học
-title: Tool tạo pdf báo cáo từ markdown # Tên đề tài
-subtitle: Báo cáo cuối môn học # Tên phụ
-instructor: Phan Thanh Ngọc # Tên giáo viên hướng dẫn
+subject: Khóa luận tốt nghiệp # Tên môn học
+major: Khoa học máy tính và thông tin # Ngành học
+title: Phương pháp rời rạc động giải các bài toán tìm đường đi có yếu tố thời gian # Tên đề tài
+instructor: Vũ Đức Minh # Tên giáo viên hướng dẫn
 author:
-  - name: Phan Thanh Ngọc # Tên tác giả
-    id: 20000001 # Mã số sinh viên
-  - name: Phan Thanh Ngọc # Tên tác giả
-    id: 20000001 # Mã số sinh viên
+  - name: Bùi Khánh Duy # Tên tác giả
+    id: 20001898 # Mã số sinh viên
+
 position: Hà Nội
-day: 05 # Ngày
-month: 11 # Tháng
-year: 2023 # Năm
-logo: "image/logo.jpg"
+day: 24 # Ngày
+month: 4 # Tháng
+year: 2024 # Năm
+logo: "logo/logo.jpg"
 ---
 # Lời mở đầu {-}
 Tui xin tự cảm ơn tui vì lười gõ latex mà lại chăm ngồi code latex để đẻ ra con này

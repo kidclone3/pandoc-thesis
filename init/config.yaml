@@ -11,7 +11,7 @@ right-margin: 2.5cm # Lề phải
 mainfont: Times New Roman # Kiểu phông chữ
 monofont: JetBrainsMono
 monofontoptions:
-  - Path = /usr/share/fonts/jetbrains-mono/
+  - Path = jetbrains-mono/
   - Extension = .ttf
   - UprightFont    = *-Regular
   - ItalicFont     = *-Italic
@@ -22,7 +22,7 @@ indent: 14pt # Khoảng cách thụt đầu dòng
 parskip: 6pt # Khoảng cách giữa các đoạn
 tikzlib: calc # Thư viện tikz
 pagestyle: '`
-\fancyhead[L]{\includegraphics[height=1cm,keepaspectratio]{image/page-header-logo.png}}
+\fancyhead[L]{\includegraphics[height=1cm,keepaspectratio]{logo/page-header-logo.png}}
 \fancyhead[R]{\small\leftmark}
 \fancyfoot[C]{\thepage}
 `{=latex}' # Thử nghiệm: tự viết đầu trang chân trang
@@ -51,12 +51,12 @@ frame_type: 1 # kiểu khung 0 là tự viết, còn có khung 1,2,3
 frame: '` `{=latex}'
 # Thử nghiệm: tự viết khung với framekind 0, không viết sẽ không có khung# Thử nghiệm: đường cắt phần tên và logo
 # bìa ngoài
-titlepage_cover: true
+titlepage_cover: false
 content_type: 1 # kiểu khung 0 là tự viết, còn có kiểu khác
 titlepage_content: '` `{=latex}'
 # Thử nghiệm: để tùy chỉnh các mục như tên mã sinh viên bằng latex...
 # bìa trong
-second_titlepage_cover: true
+second_titlepage_cover: false
 second_content_type: 1 # kiểu khung 0 là tự viết, còn có kiểu khác như 1
 second_titlepage_content: '` `{=latex}'
 # khác

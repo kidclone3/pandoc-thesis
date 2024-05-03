@@ -1,0 +1,745 @@
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+\PassOptionsToPackage{dvipsnames,svgnames,x11names,table}{xcolor}
+\documentclass[14pt,oneside]{scrbook}
+
+\usepackage{geometry}
+\geometry{a4paper,
+    top=2.5cm,
+    bottom=2.5cm,
+    left=3cm,
+    right=2.5cm,
+}
+
+% vnthesis mới đã có phần package pseudocode.
+% Nằm trong init.
+% PSEUDO-CODE
+\usepackage{algorithm}
+\usepackage[noEnd=false,indLines=false]{algpseudocodex}
+
+\newcommand{\And}{\textbf{and~}}
+\newcommand{\Or}{\textbf{or~}}
+\newcommand{\Xor}{\textbf{xor~}}
+\newcommand{\Not}{\textbf{not~}}
+\newcommand{\To}{\textbf{to~}}
+\newcommand{\DownTo}{\textbf{downto~}}
+\newcommand{\True}{\textbf{true~}}
+\newcommand{\False}{\textbf{false~}}
+\newcommand{\Input}{\item[\textbf{Input:}]}
+\renewcommand{\Output}{\item[\textbf{Output:}]}
+\newcommand{\Print}{\State \textbf{print~}}
+\renewcommand{\Return}{\State \textbf{return~}}
+% END PSEUDO-CODE.
+
+% For include other files
+\usepackage{subfiles} % Best loaded last in the preamble
+
+\usepackage{iftex}
+
+\usepackage[utf8]{vietnam}
+\usepackage[utf8]{inputenc}
+\usepackage[vietnamese]{babel}
+
+\usepackage{fontspec}
+\usepackage{pifont}
+\setmainfont{Times New Roman}[
+    ]
+\setmonofont{JetBrainsMono}[
+        Path = jetbrains-mono/,
+        Extension = .ttf,
+        UprightFont = *-Regular,
+        ItalicFont = *-Italic,
+        BoldFont = *-Bold,
+        BoldItalicFont = *-BoldItalic,
+    ]
+    
+\usepackage{fontawesome5}
+\usepackage{unicode-math}
+\usepackage{amsmath}
+\usepackage{utfsym}
+\usepackage{pmboxdraw}
+
+\usepackage{xcolor}
+\definecolor{deepblue}{RGB}{0, 0, 112}
+\definecolor{cyclamen}{RGB}{255, 145, 237}
+\definecolor{bubblegum}{RGB}{255, 115, 232}
+\definecolor{silver}{RGB}{208,208,208}
+
+\usepackage{listings}
+\lstset{
+    aboveskip=5mm,
+    belowskip=5mm,
+    xleftmargin=1.5em,
+    showstringspaces=false,
+    columns=flexible,
+    numbers=left,
+    numberfirstline,
+    stepnumber=5,
+    numberstyle=\small\color{gray},
+    keywordstyle=\bfseries\color{deepblue},
+    commentstyle=\itshape\color{deepgreen},
+    stringstyle=\color{bubblegum},
+    emphstyle=\color{deepred},
+    keepspaces=true,
+    breaklines=true,
+    breakatwhitespace=false,
+    breakautoindent=true,
+    frame=single,
+    framesep=3mm,
+    rulecolor=\color{silver},
+    tabsize=2,
+    texcl=true,
+    captionpos=b
+}
+
+\usepackage[]{hyperref}
+\usepackage{bookmark}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=black,
+    filecolor=bubblegum,
+    urlcolor=deepblue,
+    pdftitle={Phương pháp rời rạc động giải các bài toán tìm đường đi có
+yếu tố thời gian},
+}
+
+% from pandoc
+\newcommand{\passthrough}[1]{#1}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{\setlength{\itemsep}{\smallskipamount}\setlength{\parskip}{0pt}}
+% definitions for citeproc citations
+\NewDocumentCommand\citeproctext{}{}
+\NewDocumentCommand\citeproc{mm}{%
+\begingroup\def\citeproctext{#2}\cite{#1}\endgroup}
+\makeatletter
+% allow citations to break across lines
+\let\@cite@ofmt\@firstofone
+% avoid brackets around text for \cite:
+\def\@biblabel#1{}
+\def\@cite#1#2{{#1\if@tempswa , #2\fi}}
+\makeatother
+\newlength{\cslhangindent}
+\setlength{\cslhangindent}{1.5em}
+\newlength{\csllabelwidth}
+\setlength{\csllabelwidth}{3em}
+\newenvironment{CSLReferences}[2] % #1 hanging-indent, #2 entry-spacing
+{\begin{list}{}{%
+\setlength{\itemindent}{0pt}
+\setlength{\leftmargin}{0pt}
+\setlength{\parsep}{0pt}
+% turn on hanging indent if param 1 is 1
+\ifodd #1
+\setlength{\leftmargin}{\cslhangindent}
+\setlength{\itemindent}{-1\cslhangindent}
+\fi
+% set entry spacing
+\setlength{\itemsep}{#2\baselineskip}}}
+{\end{list}}
+\newcommand{\CSLBlock}[1]{\hfill\break\parbox[t]{\linewidth}{\strut\ignorespaces#1\strut}}
+\newcommand{\CSLLeftMargin}[1]{\parbox[t]{\csllabelwidth}{\strut#1\strut}}
+\newcommand{\CSLRightInline}[1]{\parbox[t]{\linewidth - \csllabelwidth}{\strut#1\strut}}
+\newcommand{\CSLIndent}[1]{\hspace{\cslhangindent}#1}
+% end from pandoc
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\includegraphics[height=1cm,keepaspectratio]{logo/page-header-logo.png}} \fancyhead[R]{\small\leftmark} \fancyfoot[C]{\thepage}
+\fancypagestyle{plain}{%
+\fancyhf{}
+\fancyhead[L]{\includegraphics[height=1cm,keepaspectratio]{logo/page-header-logo.png}} \fancyhead[R]{\small\leftmark} \fancyfoot[C]{\thepage}
+}
+
+\usepackage{titlesec}
+\setcounter{tocdepth}{2}
+\renewcommand{\baselinestretch}{1}
+\usepackage{indentfirst}
+\setlength{\parindent}{14pt}
+\setlength{\parskip}{6pt}
+
+\setcounter{secnumdepth}{4}
+\renewcommand{\thechapter}{\arabic{chapter}}
+\renewcommand{\thesection}{\thechapter.\arabic{section}}
+\renewcommand{\thesubsection}{\thesection.\arabic{subsection}}
+\renewcommand{\thesubsubsection}{\thesubsection.\arabic{subsubsection}}
+\titleformat{\chapter}
+{\bfseries\fontsize{16}{20}\selectfont}
+{\thechapter}{1em}{}
+
+\titleformat{\section}
+{\bfseries\fontsize{16}{20}\selectfont}
+{\thesection}{1em}{}
+
+\titleformat{\subsection}
+{\bfseries\fontsize{16}{18}\selectfont}
+{\thesubsection}{1em}{}
+
+\titleformat{\subsubsection}
+{\bfseries\fontsize{16}{16}\selectfont}
+{\thesubsubsection}{1em}{}
+
+\usepackage{footnotebackref}
+
+%begin tables-vrules.lua
+\usepackage{longtable,booktabs,array, multirow}
+\usepackage{calc} % for calculating minipage widths
+% Correct order of tables after \paragraph or \subparagraph
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
+% Allow footnotes in longtable head/foot
+\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+\makesavenoteenv{longtable}
+\setlength{\aboverulesep}{0pt}
+\setlength{\belowrulesep}{0pt}
+\renewcommand{\arraystretch}{1.3}
+%end tables-vrules.lua
+
+
+%begin tables-vrules.lua
+\usepackage{longtable,booktabs,array}
+\usepackage{calc} % for calculating minipage widths
+% Correct order of tables after \paragraph or \subparagraph
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
+% Allow footnotes in longtable head/foot
+\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+\makesavenoteenv{longtable}
+\setlength{\aboverulesep}{0pt}
+\setlength{\belowrulesep}{0pt}
+\renewcommand{\arraystretch}{1.3}
+%end tables-vrules.lua
+\usepackage{multicol}
+  \newlength{\currentparskip}
+
+\usepackage{environ}
+\NewEnviron{centerboxed}{
+\noindent\makebox[\linewidth][c]{%
+\begin{minipage}[t][0.95\textheight][t]{\linewidth}%
+\BODY
+\end{minipage}%
+}%
+}
+
+\NewEnviron{sign}{
+\hfill\begin{tabular}{c}
+{\it Hà Nội, ngày 24 tháng 4 năm 2024}
+\\ \BODY
+\\ \\[1cm]
+{\bf Bùi Khánh Duy}\\
+\end{tabular}%
+}
+
+\newcommand{\toc}[0]{
+\tableofcontents
+\listoffigures
+\listoftables
+}
+
+\usepackage{tikz}
+\usetikzlibrary{calc}
+\newcommand{\frontmatterthesisframe}[2]{
+\begin{tikzpicture}[remember picture,overlay]
+\centering
+\ifnum#1=0
+#2
+\fi
+
+\ifnum#1=1
+\draw[blue!70!black,line width=4pt]
+([xshift=-1.5cm,yshift=-2cm]current page.north east) coordinate (A)--
+([xshift=3.5cm,yshift=-2cm]current page.north west) coordinate(B)--
+([xshift=3.5cm,yshift=2cm]current page.south west) coordinate (C)--
+([xshift=-1.5cm,yshift=2cm]current page.south east) coordinate(D)--cycle;
+\draw
+([xshift=-0.5cm,yshift=0.5cm]A)--
+([xshift=0.5cm,yshift=0.5cm]B)--
+([xshift=0.5cm,yshift=-0.5cm]B)--
+([xshift=-0.5cm,yshift=-0.5cm]B)--
+([xshift=-0.5cm,yshift=0.5cm]C)--
+([xshift=0.5cm,yshift=0.5cm]C)--
+([xshift=0.5cm,yshift=-0.5cm]C)--
+([xshift=-0.5cm,yshift=-0.5cm]D)--
+([xshift=-0.5cm,yshift=0.5cm]D)--
+([xshift=0.5cm,yshift=0.5cm]D)--
+([xshift=0.5cm,yshift=-0.5cm]A)--
+([xshift=-0.5cm,yshift=-0.5cm]A)--
+([xshift=-0.5cm,yshift=0.5cm]A);
+\draw
+([xshift=0.3cm,yshift=-0.3cm]A)--
+([xshift=-0.3cm,yshift=-0.3cm]B)--
+([xshift=-0.3cm,yshift=0.3cm]B)--
+([xshift=0.3cm,yshift=0.3cm]B)--
+([xshift=0.3cm,yshift=-0.3cm]C)--
+([xshift=-0.3cm,yshift=-0.3cm]C)--
+([xshift=-0.3cm,yshift=0.3cm]C)--
+([xshift=0.3cm,yshift=0.3cm]D)--
+([xshift=0.3cm,yshift=-0.3cm]D)--
+([xshift=-0.3cm,yshift=-0.3cm]D)--
+([xshift=-0.3cm,yshift=0.3cm]A)--
+([xshift=0.3cm,yshift=0.3cm]A)--
+([xshift=0.3cm,yshift=-0.3cm]A);
+\fi
+
+\ifnum#1=2
+\draw [line width=2pt]
+([xshift=3.5cm,yshift=-2.5cm]current page.north west)
+rectangle
+([xshift=-2cm,yshift=2.5cm]current page.south east);
+\draw [line width=0.5pt]
+([xshift=3.6cm,yshift=-2.6cm]current page.north west)
+rectangle
+([xshift=-2.1cm,yshift=2.6cm]current page.south east);
+\fi
+
+\ifnum#1=3
+\draw[line width = 3pt]
+([xshift=3.5cm,yshift=-2.5cm]current page.north west)
+rectangle
+([xshift=-2cm,yshift=2.5cm]current page.south east);
+\fi
+\end{tikzpicture}
+}
+
+\newcommand{\frontmatterthesisinfo}[2]{
+\ifnum#1=0
+#2
+\fi
+\ifnum#1=1
+\begin{centerboxed}
+\centering
+\vspace*{3mm}
+\fontsize{14}{16}\selectfont Đại học Quốc gia Hà Nội \\
+\fontsize{14}{16}\selectfont Trường Đại học Khoa học Tự nhiên \\
+\fontsize{13}{16}\selectfont\textbf{Khoa Toán - Cơ - Tin học} \\
+\fontsize{8}{16}\Pisymbol{dingbat}{69} \hspace{1.4cm}  \Huge\usym{1F56E} \hspace{1cm} \fontsize{8}{16}\Pisymbol{dingbat}{70}\\
+\vspace*{1.5cm}
+\includegraphics[height=3cm,keepaspectratio]{"logo/logo.jpg"}\\
+\vspace*{1.5cm}
+\fontsize{18}{1}\selectfont \textbf{Phương pháp rời rạc động giải các
+bài toán tìm đường đi có yếu tố thời gian} \\
+\vspace{2cm}
+
+{\fontsize{14}{16}\selectfont Khóa luận tốt nghiệp}  \\
+{\fontsize{14}{16}\selectfont Ngành: Khoa học máy tính và thông tin}  \\
+\vspace{2cm}
+\fontsize{14}{1}\selectfont\textbf{Người hướng dẫn: Vũ Đức Minh} \\
+\vspace{2cm}
+\raggedright{\hspace{4.2cm}\fontsize{14}{1}\selectfont \textbf{Người thực hiện:}\\}
+\vspace{0.5cm}\hspace{5.5cm}
+\begin{tabular}{ll}
+Bùi Khánh Duy & 20001898 \\ \\[0.25em] 
+\end{tabular}
+\vfill
+\centering
+\fontsize{14}{14}\selectfont{\textbf{Hà Nội - 2024}}
+\end{centerboxed}
+\fi
+}
+% fix toc use san serif font in header
+\setkomafont{chapter}{\normalfont\bfseries\large}
+\RedeclareSectionCommands[
+tocentryformat=\usekomafont{chapter},
+tocpagenumberformat=\usekomafont{chapter}
+]{chapter}
+
+% DOCUMENT
+
+\begin{document}
+\frontmatter
+\pagestyle{empty}
+\mainmatter
+\pagestyle{fancy}
+\chapter{Giải bài toán MDP}\label{giux1ea3i-buxe0i-touxe1n-mdp}
+
+Để dễ trình bày, bài luận sẽ chỉ tập trung vào trường hợp thuộc tính
+\emph{FIFO n}gặt. Với trường hợp \emph{FIFO} không ngặt, chỉ cần vài sự
+thay đổi nhỏ và chứng minh lại tính đúng đắn là có thể áp dụng.
+
+\section{Ví dụ}\label{vuxed-dux1ee5}
+
+Xét mạng ở hình 2 với các hàm thời gian di chuyển được biểu diễn ở hình
+4. Khung thời gian là \([0, 5]\). Hầu hết các cung có điểm dừng là số
+nguyên. Ngoại lệ là cung \((3, 4)\) chỉ có điểm dừng tại \(0, 1, 2\) và
+\(5\). \textbf{Phụ lục 8} cung cấp chi tiết về các hàm thời gian di
+chuyển và hàm đảo chiều của chúng.
+
+\includegraphics{images/Figure2.png}Hình 2: Mạng \(D\); Bảng 3: Bảng
+Thời gian di chuyển với mỗi điểm điểm dừng.
+
+\includegraphics{images/Figure4.png} Hình 4: Biểu đồ đường cho Hàm thời
+gian di chuyển.
+
+\section{Công thức chi tiết}\label{cuxf4ng-thux1ee9c-chi-tiux1ebft}
+
+Cho thời điểm \(t\) bất kì thuộc khoảng \([0, T]\) biểu diễn thời gian
+đi đến đỉnh \(n\), ta có thể xây dựng BSPT tương ứng. BSPT là một Mạng
+thời gian-không gian (\textbf{TEN}) được kí hiệu là \(B^t\), có gốc là
+\((n, t)\). Cây này được định nghĩa bởi tập hợp các nút\footnote{để phân
+  biệt mạng với đồ thị, sử dụng các từ nút thay cho đỉnh.} \((i, t_i)\)
+với \(i \in N\) và \(t_i \in (-\infty, T]\), tập hợp các cung\footnote{để
+  phân biệt mạng với đồ thị, sử dụng các từ cung thay cho cạnh.}
+\(((i, t_i), (j, t_j))\) thỏa mãn các điều kiện sau: - Với mỗi
+\(i\in N\), chỉ tồn tại \(t_i\) là thời gian khởi hành muộn nhất để đi
+từ \(i\) đến \(n\). Lúc này \((i, t_i)\in B^t\), - \((i, j) \in A\), -
+\(t_i + c_{i, j}(t_i) = t_j\), và - \textbf{Chỉ có một đường đi duy
+nhất}~từ \(i\) đến \(n\) trong \(B^t\). Đường đi này được xác định
+bởi~nghiệm của \emph{TDSPP}~(được gọi là \emph{TDSP}) bắt đầu từ \(i\)
+tại thời gian \(t_i\) và kết thúc ở \(n\). \textbf{BSPT} được tìm ra
+bằng cách giải bài toán \emph{TDSPP}, bằng cách áp dụng thuật toán SSSP
+với một vài điều chỉnh đơn giản. BSPT cho đỉnh \(4\) tại thời gian
+\(t=2.57\) được biểu diễn ở hình 5(b). Mạng TEN này bao gồm các nút
+\(\{(1, 0.00), (2, 1.34), (3, 1.76), (4, 2.57)\}\)\footnote{thời gian
+  làm tròn thời gian đến 2 chữ số thập phân} và các cung
+\((1, 2), (2, 4), (3, 4)\) được xác định bởi các nút theo thời gian.
+\includegraphics{images/Figure5.png} Hình 5: quy trình tạo ABSPT ứng với
+đỉnh xuất phát (1,0)
+
+Lưu ý khi xây dựng BSPT \(B^t\): - tại một thời điểm \(t \in [0, T]\)
+\textbf{bất kỳ,}~có thể tồn tại một số đỉnh \(i\) không thể đi đến đỉnh
+\(n\)~bất kể với thời gian nào \(> 0\). - \textbf{Trường hợp đơn
+giản:}~Nếu đỉnh đang xét \(i\) ở~thời gian \(t = T\), ta có thể loại bỏ
+nút \(i\) khỏi mạng ngay từ bước xử lý trước. - \textbf{Trường hợp phức
+tạp:}~Để đơn giản hóa cho bước tiếp theo, ta giả sử rằng \emph{BSPT}
+chứa một nút cho mọi đỉnh \(i \in N\). Để thực hiện điều này, hàm thời
+gian di chuyển \(c_{i,j}(t)\) được mở rộng sang \(t < 0\) (âm): Với mọi
+cung \((i, j)\) trong mạng \(A\) và mọi thời điểm \(t < 0\), ta gán giá
+trị của \(c_{i,j}(t) = c_{i,j}(0)\). Do đó, các nút \((i, t_i)\) với
+\(t_i<0\) cũng có thể được thêm vào mạng \(B^t\).
+
+Thuật toán DDD được xây dựng dựa trên những đặc điểm sau của các BSPT: -
+\textbf{Tính chất FIFO:} Nếu hai nút \((i, s)\) trong \(B^t\) và
+\((i, s’)\) trong \(B^{t’}\) với \(t’ > t\) thì \(s’ > s\), (Điều này có
+nghĩa là nếu một nút đến muộn hơn trong \(B^t\), nó cũng sẽ đến càng
+muộn hơn trong \(B^{t’}\)). - \textbf{Đường đi theo thời gian tối
+thiểu:} Bất kỳ đường đi có thời gian tối thiểu nào từ đỉnh \(1\) đến
+\(n\), trong đó đến đỉnh \(n\) tại thời gian \(t\) hoặc muộn hơn, đều
+được biểu diễn thành một dãy các nút trong \(B^t\). Nghĩa là, với mỗi
+cặp \((i, s)\) trên đường đi sẽ tồn tại một nút \((i, s’) \in B^t\) thỏa
+mãn \(s’ \le s\) (thời gian đến tại \(s'\) không trễ hơn s). Lưu ý rằng
+dãy các nút này không nhất thiết phải theo các cung trong \(B^t\).
+
+Từ những đặc điểm trên, ta có định nghĩa sau:
+
+Cây \textbf{ABSPT} là một mạng \textbf{TEN} được hình thành bằng cách
+thêm các cung vào \textbf{BSPT} có sẵn. Cụ thể, ta thêm cung
+\(((i, t_i), (j, t_j))\) cho mọi cặp nút \((i, j) \in A\) nếu cả
+\((i, t_i)\) và \((j, t_j)\) đều có trong \textbf{BSPT}. Theo định nghĩa
+của BSPT, ta có: - \(t_i + c_{i,j}(t_i) \ge t_j\)~cho tất cả các cung
+trong \textbf{ABSPT}. - Nói cách khác, \(t_j - t_i \le c_{i,j}(t_i)\)
+với mọi \(((i, t_i), (j, t_j))\) trong \textbf{ABSPT} Hình 5(c) minh họa
+cho ABSPT của \(B^t\) với \(t = 2.57\). Trong hình, \(c_{i,j}(t_i)\)
+được gạch chéo màu đỏ và thay thế bằng giá trị \(t_j - t_i\) trên tất cả
+các cung mới được thêm vào để tạo thành \textbf{ABSPT}. Các cung mới có
+kí hiệu ba chấm. Ta kí hiệu ABSPT được tạo nên từ \(B^t\) là
+\(\overline{\cal B}^t\).
+
+Thuật toán của tôi hoạt động bằng cách duy trì một danh sách các ABSPT
+sắp xếp theo thứ tự thời gian tăng dần. Khởi tạo danh sách bằng hai
+ABSPT: - ABSPT cho \textbf{thời gian đến nút đích sớm nhất có thể}. -
+ABSPT cho \textbf{thời gian kết thúc của khung thời gian.} Hai thời gian
+này xác định nên khoảng giới hạn của nghiệm khả thi: tất cả các đường đi
+hợp lệ theo khung thời gian đều phải đến đích trong giới hạn này. Thuật
+toán sẽ liên tục tạo thêm ABSPT để chia nhỏ giới hạn đấy. Ví dụ với
+khung thời gian \(t\in [0,5]\), hai ABSPT ban đầu là
+\(\overline{\cal B}^{2.57}\) và \(\overline{\cal B}^{5}\).
+\(\overline{\cal B}^{5}\) chứa các nút theo thời gian
+\((1, 2.90), (2, 2.92), (3, 4.05)\) và \((4, 5)\). Quan sát sau đây được
+dùng để so sánh hai ABSPT liên tiếp: Giả sử \(\overline{\cal B}^t\) và
+\(\overline{\cal B}^{t^+}\) liên tiếp có thời gian kết thúc tương ứng là
+\(t\) và \(t^+\), \(t^+>t\). Đối với mỗi cung \(((i, s_i), (j, s_j))\)
+trong \(\overline{\cal B}^t\), thuật toán tính ra UTT kết hợp với
+\(\overline{\cal B}^{t^+}\) theo công thức:
+\[    \underline c_{(i, s_i),(j, s_j)}=\min_\tau\{c_{ij}(\tau)|s_i\le\tau\le s_i^+\},\]
+với \((i, s_i^+)\) là nút cho đỉnh \(i\) trong ABSPT kế tiếp. Hình 5(d)
+minh họa các giá trị \textbf{UTT} trong ví dụ với \(t = 2.57\) và
+\(t^+  = 5\) (các cung màu đen). Chúng được tính dựa trên đoạn thời gian
+tạo thành từ các nút trong \(\overline{\cal B}^{2.57}\) và
+\(\overline{\cal B}^{5}\). Ví dụ: UTT cho cung \(((1, 0),(2, 1.34))\) là
+\(\min c_{1, 2}(\tau) = 0.02\) với \(\tau \in [0, 2.90]\), và \(\tau\)
+nằm ở cuối của đoạn. Ngược lại, UTT cho cung \(((1, 0),(3, 1.76))\) là
+\(\min c_{1,3}(\tau) = 2.85\)\$ với \(\tau \in [0, 4.05]\) và \(\tau\)
+nằm ở đầu đoạn.
+
+Đường đi có chứa UTT nhỏ nhất trong số các ABSPT là \textbf{cận dưới}
+của bất kì nghiệm khả thi nào. Ví dụ, trong hình 5(d), các nút thuộc
+đường đi có \textbf{UTT} nhỏ nhất trong \(\overline{\cal B}^{2.57}\)
+được tô màu xanh. Nhãn của nút cuối là \(1.25\), nghĩa là không có đường
+dẫn hợp lệ nào đến nút cuối trong khung thời gian từ \(2.57\) đến \(5\)
+có thời gian di chuyển nhỏ hơn \(1.25\), tương ứng với cận dưới là
+\(1.25\).
+
+Bằng việc thêm vào danh sách các ABSPT với thời gian kết thúc lớn hơn
+ABSPT của cận dưới hiện tại, ta có thể cải thiện (ít nhất là không làm
+giảm) các giá trị UTT.
+
+Từ ABSPT ta luôn tìm được \textbf{cận trên} cho thời gian thực hiện.
+Theo định nghĩa, nếu \((1, t_1)\) và \((n, t_n)\) là hai nút đầu và cuối
+tương ứng, thì \(t_n - t_1\) sẽ là cận trên và thuật toán sẽ lưu lại cận
+trên tốt nhất. Trong ví dụ: \(\overline{\cal B}^{2.57}\) có thời gian
+thực hiện là \(2.57\) và \(\overline{\cal B}^{5}\) là \(2.10\). Từ đây
+ta có cận dưới tốt nhất là \(1.25\) và cận trên tốt nhất là \(2.10\).
+
+Chỉ với việc áp dụng phương pháp tìm kiếm cận dưới và cận trên từ danh
+sách kết hợp với thêm các ABSPT mới cho khoảng thời gian ngay sau ABSPT
+cận dưới, thuật toán sẽ luôn hội tụ về nghiệm tối ưu. Ví dụ như thời
+gian hội tụ về giữa của khoảng thời gian mới. Thêm vào đó, Foschini et
+al.~(2014) đã chỉ ra rằng luôn tồn tại một phương pháp tối ưu sử dụng
+các điều dừng của hàm thời gian di chuyển. Nhờ quan sát này, ta có thể
+tạo ra thời gian kết thúc cho các ABSPT mới một cách nhanh chóng hơn
+đồng thời loại bỏ các khoảng thời gian phụ không cần thiết. Cũng vì vậy
+mà thuật toán sẽ dừng lại sau hữu hạn các lần lặp.
+
+Bây giờ sẽ là phần trình bày cách sử dụng các điểm dừng trong hàm thời
+gian di chuyển để xây dựng thuật toán.
+
+\section{Điểm dừng}\label{ux111iux1ec3m-dux1eebng}
+
+Đầu tiên, khởi tạo các ABSPT chứa ít nhất một nút \((i, t)\) là điểm
+dừng. Cụ thể: \((1, 0)\) nằm trong ABSPT thứ nhất và \((n, T)\) nằm
+trong ABSPT thứ 2. Các nút \((1, 0\) và \((n, T)\) đều được coi là điểm
+dừng.
+
+Xét hai ABSPT liên tiếp trong danh sách, giả sử ABSPT trước có nút
+\((i, t_i)\) và ABSPT sau có nút là \((i, t_i^+)\) đồng thời ABSPT trước
+là cận dưới hiện tại.
+
+Có các trường hợp sau đây sẽ xảy ra:
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Trường hợp 1:}
+  \(\exists (i, j) \in A\ |\ \tau_i:t_i < \tau_i < t_i^+\) với điểm dừng
+  \(\tau_i\). Lúc này, ta nói điểm \((i, \tau_i)\) nằm giữa hai ABSPT.
+  Xây dựng ABSPT mới như sau:
+
+  \begin{enumerate}
+  \def\labelenumi{\arabic{enumi}.}
+  \tightlist
+  \item
+    Tìm TDSP xuất phát từ \(i\) thời điểm \(\tau_i\) đến \(n\).
+  \item
+    Giả sử TDSP đi đến \(n\) tại thời điểm \(\tau_n\). Lúc này BSPT từ
+    \(\tau_n\) là \(\cal B ^{\tau_n}\) phải có nút \((i, \tau_i)\). Ta
+    nói các cung đã được hoàn thành và \(\overline {\cal B} ^{\tau_n}\)
+    là ABSPT tương ứng với nút \((i, \tau_i)\). Theo tính chất của việc
+    tạo danh sách các ABSPT, điều kiện \(t_n < \tau_n < t_n^+\) phải
+    thoả mãn. Lúc này ABSPT tương ứng với \((i, \tau_i)\) được chèn vào
+    giữa hai ABSPT có thời gian kết thúc lần lượt là \(t_n\) và
+    \(t_n^+\).
+  \end{enumerate}
+\item
+  \textbf{Trường hợp 2:}
+  \(\nexists (i, j)\in A\ |\ \tau_i: t_i < \tau_i < t_i^+\), không có
+  điểm dừng nằm giữa hai ABSPT. Lúc này, ta có thể kết luận trạng thái
+  ABSPT được giải quyết và không có ABSPT mới được thêm vào. \#\# Thuật
+  toán 1
+\end{itemize}
+
+Tổng quan thuật toán như sau:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Xác định một ABSPT bất kì từ danh sách, giả sử là
+  \(\overline {\cal B} ^{t}\) chứa các nút \((j, t_j)\) với mỗi đỉnh
+  \(j\).
+\item
+  Tính toán:
+
+  \begin{enumerate}
+  \def\labelenumii{\arabic{enumii}.}
+  \tightlist
+  \item
+    Hàm cận trên \(computeUB(\overline {\cal B} ^{t}) = t_n -t_1\).
+  \item
+    Hàm cận dưới \(computeLB(\overline {\cal B} ^{t}):\)
+
+    \begin{enumerate}
+    \def\labelenumiii{\arabic{enumiii}.}
+    \tightlist
+    \item
+      Xây dựng tập các UTT cho mỗi cung trong
+      \(\overline {\cal B} ^{t}\) kết hợp với ABSPT kế tiếp,
+    \item
+      Tìm đường đi UTT nhỏ nhất từ nút \((1, t_1)\) đến \((n, t_n)\)
+      trong ABSPT,
+    \item
+      Trả về giá trị tìm được.
+    \end{enumerate}
+  \item
+    Lưu lại các giá trị
+    \(LB^t \gets computeLB(\overline {\cal B} ^{t}), UB^t \gets computeUB(\overline {\cal B} ^{t})\)
+  \end{enumerate}
+\item
+  Đối với ABSPT cuối cùng trong danh sách: \(\overline {\cal B} ^{T}\):
+
+  \begin{enumerate}
+  \def\labelenumii{\arabic{enumii}.}
+  \tightlist
+  \item
+    Các UTT sẽ là thời gian di chuyển thực tế nếu cung có trong BSPT, và
+    là vô cực trong các trường hợp khác,
+  \item
+    Cận dưới \(LB^T\) = \(UB^T\) (bằng cận trên).
+  \end{enumerate}
+\end{enumerate}
+
+Vì thuật toán 1 thực chất là một họ các thuật toán nên không đề cập đến
+phương án chọn điểm dừng khi có nhiều lựa chọn. Phần 5.2 sẽ đề cập đến
+các cách chọn được sử dụng.
+
+\section{Mã giả}\label{muxe3-giux1ea3}
+
+Thuật toán 1.
+
+\begin{lstlisting}
+{=latex}
+
+\begin{algorithm}
+
+\caption{Dynamic Discretization Discovery (DDD) Algorithm for the MDP}
+\begin{algorithmic}
+\Input{digraph $D=(N,A)$, latest time $T$, arc travel time function $c_{i,j}(t)$ for all $t\in [0, T]$, each $(i, j) \in A$}
+\Output{minimum duration path from node $1$ to $n$ departing and arriving at times in $[0, T]$}
+
+\State Solve the TDSP starting from $(1, 0)$ to determine $t_0$, the earliest time that $n$ can be reached ;
+\State Initialize ordered list of ABSPTs: set $L \leftarrow (\overline{B}^{t_0}, \overline{B}^{T})$  ;
+\State $UB \leftarrow \min\{ computeUB(\overline{B}^{t_0}), computeUB(\overline{B}^{T})\}$ ;
+\State $LB^{t_0} \leftarrow computeLB(\overline{B}^{t_0})$ ;
+\State Set $LB \leftarrow LB^{t_0}$, set $t \leftarrow t_0$ and set $t^+ \leftarrow T$ ;
+\While{$(LB < UB)$}
+
+    \If{some breakpoints $(j, \tau)$ lies between $\overline{B}^{t}$ and $\overline{B}^{t^+}$}
+        \State Solve the TDSP starting from $(j, \tau)$ to determine, s, the earliest arrival at $n$ ;
+        \State Create the new ABSPT $\overline{B}^s$ and set $UB^s \leftarrow computeUB(\overline{B}^s)$ ;
+        \If {$UB^s < UB$} 
+            \State $UB \leftarrow UB^s$
+        \EndIf
+        \State Insert $\overline{B}^s$ in the list $L$ between $\overline{B}^t$ and $\overline{B}^{t^+}$ ;
+        \State $LB^t \leftarrow computeLB(\overline{B}^t)$ ;
+        \State $LB^s \leftarrow computeLB(\overline{B}^s)$ ;
+    \Else
+        \State The status of $\overline{B}^t$ is resolved: set $LB^t \leftarrow UB^t$ ;
+    \EndIf
+    \State Update the lower bound: set $t \leftarrow \arg\min_{\tau}LB^{\tau}$ and $LB\leftarrow LB^t$ 
+    \State Identify the next ABSPT in the list: $t^+ \leftarrow min\{\tau : \overline{B}^{\tau}$ is in $L$ and $\tau > t \}$ ;
+\EndWhile
+  
+  \end{algorithmic}
+\end{algorithm}
+\end{lstlisting}
+
+\section{Minh hoạ thuật toán}\label{minh-houx1ea1-thuux1eadt-touxe1n}
+
+\includegraphics{images/Figure6a.png}
+\includegraphics{images/Figure6b.png}
+
+\textbf{Hình 6} minh họa cách thức hoạt động của thuật toán trên ví dụ
+từ \textbf{Hình 2} và \textbf{Bảng 3}.
+
+\textbf{Khởi tạo:} Danh sách ABSPT được khởi tạo với hai phần tử: -
+\(\overline{\cal B}^{2.57}\): ứng với nút \((1, 0)\) - TDSP bắt đầu từ
+\((1, 0)\) đến đỉnh \(4\) tại thời điểm \(t_0 = 2.57\). -
+\(\overline{\cal B}^{5}\): như đã đề cập ở trên.
+
+Các giá trị \(LB=1.25\) và \(UB=2.10\) đã được tính toán ở trên.
+
+\textbf{Lần lặp 1:}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Xác định điểm dừng \(\tau = 1 \in [0, 2.90]\) của cung \((1, 2)\).
+\item
+  Tìm thấy điểm dừng mới \((j, \tau) = (1, 1)\) giữa hai \textbf{ABSPT}.
+\item
+  Tìm thấy TDSP \(((1, 1), (2, 1.66), (4, 3.0826))\), đi đến đỉnh \(4\)
+  tại thời gian \(3.08\) nên tạo ra \(\overline{\cal B}^{3.08}\) và thêm
+  vào danh sách (Hình 6(b), có 3 ABSPT).
+\item
+  Cập nhật cận trên và cận dưới: \(UB^{3.08} = 2.08\) và
+  \(LB^{3.08} = 1.45\).
+\item
+  Tính lại và cập nhật cận dưới cho
+  \(\overline{\cal B}^{2.57} : LB^{2.57} = 1.89.\)
+\end{enumerate}
+
+Hiện tại thì \(LB=1.45\) và \(UB = 2.08\). Vì \(LB<UB\) nên tiếp tục
+lặp.
+
+\textbf{Lặp tiếp theo:}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Thêm ABSPT \(\overline{\cal B}^{3.89}\) và
+  \(\overline{\cal B}^{3.63}\) tương ứng với \((1, 2)\) và \((2, 2)\).
+  Cái thứ hai cũng là ABSPT thứ ba trong danh sách tại Iteration 4.
+\item
+  Cập nhật cận dưới hiện tại: \(LB = 1.71\) (từ
+  \(\overline{\cal B}^{3.08}\)).
+\item
+  Do không có điểm dừng giữa \textbf{ABSPT} thứ \(2\) và thứ \(3\), cập
+  nhật cận dưới của \(\overline{\cal B}^{3.08}\) bằng cận trên:
+  \(LB^{3.08} \gets 2.08\).
+\item
+  Cập nhật cận dưới hiện tại: \(LB = 1.89\) (từ
+  \(\overline{\cal B}^{3.63}\)). (Lặp 5)
+\item
+  Cập nhật cận dưới của \(\overline{\cal B}^{3.63}\) và
+  \(\overline{\cal B}^{3.89}\) do không còn điểm dừng.
+\item
+  Kiểm tra: \(UB = LB = 1.90\). Thuật toán dừng.
+\end{enumerate}
+
+Kết quả nghiệm tối ưu (đường đi tối ưu):
+\[((1, 2.00), (2, 2.14), (4, 3.89))\]
+
+\begin{quote}
+{[}!definition{]} Cho một bài toán MTTP với các hàm thời gian di chuyển
+\(c\), việc xây dựng mạng mở rộng theo thời gian của bài toán đó với các
+độ dài cung liên quan, gọi tắt là \textbf{TENL}, như sau:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Đối với mỗi~\textbf{điểm dừng}~\((i, t)\), giải hai bài toán con
+  \textbf{TDSPP}: tính \(i-FSPT\) (kí hiệu \(\cal F^{i,t}\)) và tính
+  \(i-BSPT\) (kí hiệu \(\cal B^{i,t}\)). Tạo ra TEN từ tất cả các nút và
+  cung trong \(\cal F^{i,t}\) và \(\cal B^{i,t}\) với mọi \textbf{điểm
+  dừng}~\((i,t)\) có trong đó.
+\item
+  Đối với mỗi nút trong bài toán đã cho, hãy thêm các cung chờ đợi giữa
+  các bản sao thời gian liền kề theo thứ tự thời gian của nút đó trong
+  \textbf{TEN}.
+\item
+  Ngược lại, gán cho bất kỳ cung nào trong \textbf{TEN} kết quả, chẳng
+  hạn như \(((i, t), (j, t' ))\), độ dài bằng \(0\) nếu \(j = i\) và độ
+  dài bằng \(c_{i,j} (t)\) (và phải bằng \(t' − t\) theo như xây dựng).
+\end{enumerate}
+\end{quote}
+\backmatter
+\end{document}
+% END DOCUMENT
